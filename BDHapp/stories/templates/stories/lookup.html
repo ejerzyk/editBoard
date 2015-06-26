@@ -1,0 +1,47 @@
+{% extends 'default.html' %}
+{% block title %}Stories{% endblock %}
+{% block body %}
+<style>
+table {
+	width: 100%;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+tr {
+	border: none;
+}
+td {
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+}
+.gray {
+	background-color: gray;
+}
+</style>
+<div class='jumbotron'>
+	<h3>Stories</h3>
+</div>
+<table>
+	<tr class="gray">
+		<td><a href="?sort=title"><b>Title</b></a></td>
+		<td><a href="?sort=date"><b>Date</b></a></td>
+		<td><a href="?sort=section"><b>Section</b></a></td>
+		<td><b>Author(s)</b></td>
+		<td><b>Editor(s)</b></td>
+	</tr>
+{% for story in contents %}
+	<tr>
+		<td class={% if forloop.counter|divisibleby:2 %}"gray"{% else %}"white"{% endif %}><a href="{{ story.url }}">{{ story.title }}</a></td>
+		<td>{{ story.date }}</td>
+		<td>{{ story.section }}</td>
+		<td>{% for author in story.authors %}
+			<a href="{% url 'stories:by_page' %}?author={{ author.id }}">{{ author }}{% if forloop.last %}{% else %}, {% endif %}</a>
+			{% endfor %}</td>
+		<td>{% for editor in story.editors %}
+			<a href="{% url 'stories:by_page' %}?author={{ editor.id }}">{{ editor }}{% if forloop.last %}{% else %}, {% endif %}</a>
+			{% endfor %}</td>
+	</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

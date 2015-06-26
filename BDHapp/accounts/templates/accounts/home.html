@@ -1,0 +1,55 @@
+{% extends 'default.html' %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<style>
+a, h3 {
+	padding: 10px;
+}
+.block {
+	padding: 10px;
+	text-align: center;
+	background-color: #a7a7a7;
+	margin: 10px;
+	border-radius: 15px;
+}
+a {
+	display: block;
+	background-color: #bfbfbf;
+}
+</style>
+<div class='col-md-6'>
+	{% if edit_board or section_ed or ssw %}
+	<div class='block'>
+		<h3>Management</h3>
+		{% if edit_board or section_ed %}
+		<a href="{% url 'management:select' %}">Generate reports about authors</a><br>
+		{% endif %}
+		<a href="{% url 'management:self' %}">See report about yourself</a><br>
+	</div>
+	{% endif %}
+
+	<div class='block'>
+		<h3>Stories</h3>
+		<a href="{% url 'stories:lookup' %}">Lookup stoires</a><br>
+		{% if section_ed or edit_board %}
+		<a href="{% url 'stories:edit' %}">Edit editorship of stories</a><br>
+		{% endif %}
+	</div>
+</div>
+
+<div class='col-md-6'>
+	<div class='block'>
+		<h3>Accounts</h3>
+		{% if edit_board %}
+		<a href="{% url 'accounts:approve' %}">Approve or deny new users and permissions</a><br>
+		{% endif %}
+		<a href="{% url 'accounts:lookup' %}">Lookup system users</a><br>
+	</div>
+
+	<div class='block'>
+		<h3>Students</h3>
+		<a href="{% url 'students:lookup' %}">Lookup students in directory</a><br>
+		<a href="{% url 'students:edit' %}">Edit students in directory</a><br>
+	</div>
+</div>
+{% endblock %}

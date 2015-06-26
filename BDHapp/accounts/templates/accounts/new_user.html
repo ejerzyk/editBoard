@@ -1,0 +1,137 @@
+{% extends 'default.html' %}
+{% block title %}New User{% endblock %}
+{% block body %}
+<style>
+form {
+	display: block;
+	padding: 20px;
+	border-radius: 15px;
+	background-color: #b4b4b4;
+	text-align: center;
+	margin: 20px;
+}
+input {
+	margin: 3px;
+}
+td {
+	/*padding: 3px;*/
+	/*border: 1px solid black;*/
+}
+label {
+	/*vertical-align: middle;*/
+	margin-right: 5px;
+}
+</style>
+<form action="{% url 'accounts:created_user' %}" method="POST">
+{% csrf_token %}
+<h3>New User</h3>
+<br><br>
+<table align='center'>
+	<tr>
+		<td>First Name:</td>
+		<td><input autofocus name='first_name' id='first_name' type='text'></td>
+	</tr>
+	<tr>
+		<td>Last Name:</td>
+		<td><input name='last_name' id='last_name' type='text'></td>
+	</tr>
+	<tr>
+		<td>Username:</td>
+		<td><input name='username' id='username' type='text'></td>
+	</tr>
+	<tr>
+		<td>Password:</td>
+		<td><input name='password' id='password' type='password'></td>
+	</tr>
+	<tr>
+		<td>Email:</td>
+		<td><input name='email' id='email' type='email'></td>
+	</tr>
+	<tr>
+		<td>Phone Number:</td>
+		<td><input name='phone_number' id='phone_number' type='text'></td>
+	</tr>
+	<tr>
+		<td>User Type:</td>
+		<td><label for='copy_ed'>Copy Ed: </label><input checked name='user_type' id='copy_ed' value='copy_ed' type='radio'><br>
+			<label for='ssw'>SSW: </label><input name='user_type' id='ssw' value='ssw' type='radio'><br>
+			<label for='section_ed'>Section Ed: </label><input name='user_type' id='section_ed' value='section_ed' type='radio'><br>
+			<label for='edit_board'>Edit Board: </label><input name='user_type' id='edit_board' value='edit_board' type='radio'></td>
+	</tr>
+	<tr>
+		<td>http://browndailyherald.com/author/</td>
+		<td><input disabled name='author_url' id='author_url' type='text'></td>
+	</tr>
+	<tr>
+		<td>Section:</td>
+		<td><fieldset disabled id='section'>
+				<label for='metro'>Metro: </label><input checked name='section' id='metro' value='metro' type='radio'><br>
+				<label for='news'>U. News: </label><input name='section' id='news' value='news' type='radio'><br>
+				<label for='ac'>A &amp; C: </label><input name='section' id='ac' value='ac' type='radio'><br>
+				<label for='sr'>S &amp; R: </label><input name='section' id='sr' value='sr' type='radio'><br>
+				<label for='sports'>Sports: </label><input name='section' id='sports' value='sports' type='radio'>
+			</fieldset></td>
+	</tr>
+</table>
+<br><br>
+<input disabled type="submit" id='submit'>
+</form>
+<script>
+	var ssw = document.getElementById('ssw');
+	var section_ed = document.getElementById('section_ed');
+	var edit_board = document.getElementById('edit_board');
+	var copy_ed = document.getElementById('copy_ed');
+
+	var author_url = document.getElementById('author_url');
+	var section = document.getElementById('section');
+
+	function author_change() {
+		if ((!ssw.checked) && (!section_ed.checked) && (!edit_board.checked)) {
+			author_url.setAttribute('disabled', '');
+			section.setAttribute('disabled', '');
+		} else {
+			author_url.removeAttribute('disabled');
+			section.removeAttribute('disabled');
+		}
+		text_change();
+	}
+
+	var submit = document.getElementById('submit');
+
+	var username = document.getElementById('username');
+	var password = document.getElementById('password');
+	var email = document.getElementById('email');
+	var phone_number = document.getElementById('phone_number');
+	var first_name = document.getElementById('first_name');
+	var last_name = document.getElementById('last_name');
+
+	function text_change() {
+		if ((username.value != '') && (password.value != '') && (email.value != '') && (phone_number.value != '')) {
+			if (copy_ed.checked) {
+				submit.removeAttribute('disabled');
+			} else {
+				if (author_url.value == '') {
+					submit.setAttribute('disabled', '');
+				} else {
+					submit.removeAttribute('disabled');
+				}
+			}
+		} else {
+			submit.setAttribute('disabled', '');
+		}
+	}
+
+	ssw.onchange = author_change;
+	section_ed.onchange = author_change;
+	edit_board.onchange = author_change;
+	copy_ed.onchange = author_change;
+
+	username.oninput = text_change;
+	password.oninput = text_change;
+	email.oninput = text_change;
+	phone_number.oninput = text_change;
+	author_url.oninput = text_change;
+	first_name.oninput = text_change;
+	last_name.oninput = text_change;
+</script>
+{% endblock %}
