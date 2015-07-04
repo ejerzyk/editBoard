@@ -3,9 +3,11 @@
 {% block body %}
 <style>
 table {
-	width: 100%;
+	width: 90%;
 	border: 1px solid black;
 	border-collapse: collapse;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 tr {
 	border: none;
@@ -14,12 +16,12 @@ td {
 	border-right: 1px solid black;
 	border-left: 1px solid black;
 }
-.gray {
-	background-color: gray;
+tr.gray {
+	background-color: #E2E2E2;
 }
 </style>
 <div class='jumbotron'>
-	<h3>Stories</h3>
+	<h3>All stories</h3>
 </div>
 <table>
 	<tr class="gray">
@@ -30,18 +32,17 @@ td {
 		<td><b>Editor(s)</b></td>
 	</tr>
 {% for story in contents %}
-	<tr>
-		<td class={% if forloop.counter|divisibleby:2 %}"gray"{% else %}"white"{% endif %}><a href="{{ story.url }}">{{ story.title }}</a></td>
+	<tr class={% if forloop.counter|divisibleby:2 %}"gray"{% endif %}>
+		<td><a href="{{ story.url }}">{{ story.title }}</a></td>
 		<td>{{ story.date }}</td>
 		<td>{{ story.section }}</td>
 		<td>{% for author in story.authors %}
-			<a href="{% url 'stories:by_page' %}?author={{ author.id }}">{{ author }}{% if forloop.last %}{% else %}, {% endif %}</a>
+			<a href="{% url 'accounts:by_page' %}?author={{ author.id }}">{{ author }}{% if forloop.last %}{% else %}, {% endif %}</a>
 			{% endfor %}</td>
 		<td>{% for editor in story.editors %}
-			<a href="{% url 'stories:by_page' %}?author={{ editor.id }}">{{ editor }}{% if forloop.last %}{% else %}, {% endif %}</a>
+			<a href="{% url 'accounts:by_page' %}?author={{ editor.id }}">{{ editor }}{% if forloop.last %}{% else %}, {% endif %}</a>
 			{% endfor %}</td>
 	</tr>
 {% endfor %}
 </table>
-
 {% endblock %}

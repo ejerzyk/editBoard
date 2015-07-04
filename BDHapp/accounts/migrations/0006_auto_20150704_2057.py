@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0001_initial'),
+        ('accounts', '0005_auto_20150626_2054'),
     ]
 
     operations = [
@@ -47,13 +47,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='editor_relationship',
             name='story',
-            field=models.ForeignKey(to='stories.story'),
+            field=models.ForeignKey(to='accounts.story'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='author_relationship',
             name='story',
-            field=models.ForeignKey(to='stories.story'),
+            field=models.ForeignKey(to='accounts.story'),
             preserve_default=True,
         ),
     ]

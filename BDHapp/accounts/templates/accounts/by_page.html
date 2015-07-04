@@ -15,23 +15,23 @@ td {
 	border-left: 1px solid black;
 }
 .gray {
-	background-color: gray;
+	background-color: #E2E2E2;
 }
 </style>
 <div class='jumbotron'>
-	<h3>All the stories by {{ author }}.</h3>
+	<h3>All the stories by {{ author.gen_user }}.</h3>
 </div>
 <table>
 	<tr class="gray">
-		<td><a href="?author={{ author }}&?sort=title"><b>Title</b></a></td>
-		<td><a href="?author={{ author }}&?sort=date"><b>Date</b></a></td>
-		<td><a href="?author={{ author }}&?sort=section"><b>Section</b></a></td>
+		<td><a href="?author={{ author.id }}&sort=title"><b>Title</b></a></td>
+		<td><a href="?author={{ author.id }}&sort=date"><b>Date</b></a></td>
+		<td><a href="?author={{ author.id }}&sort=section"><b>Section</b></a></td>
 		<td><b>Author(s)</b></td>
 		<td><b>Editor(s)</b></td>
 	</tr>
 {% for story in contents %}
-	<tr>
-		<td class={% if forloop.counter|divisibleby:2 %}"gray"{% else %}"white"{% endif %}><a href="{{ story.url }}">{{ story.title }}</a></td>
+	<tr class={% if forloop.counter|divisibleby:2 %}"gray"{% endif %}>
+		<td><a href="{{ story.url }}">{{ story.title }}</a></td>
 		<td>{{ story.date }}</td>
 		<td>{{ story.section }}</td>
 		<td>{% for author in story.authors %}

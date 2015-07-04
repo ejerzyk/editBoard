@@ -39,7 +39,6 @@ INSTALLED_APPS = (
     'accounts',
     'management',
     'students',
-    'stories',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -80,14 +79,18 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
-
-STATIC_URL = '/static/'
+STATICFILES_DIRS = ('static/',)
 
 TEMPLATE_DIRS = ('templates/',)
 
 AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
     )
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ejerzyk@gmail.com'
+EMAIL_HOST_PASSWORD = ')&!&(%)&!&(%'
+
+STATIC_URL = '/static/'

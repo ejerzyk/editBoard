@@ -8,12 +8,16 @@ a, h3 {
 .block {
 	padding: 10px;
 	text-align: center;
-	background-color: #a7a7a7;
+	background-color: #cccccc;
 	margin: 10px;
 	border-radius: 15px;
 }
-a {
+.home-link {
 	display: block;
+	border-radius: 10px;
+	border: 1px solid #b3b3b3;
+}
+.home-link:hover {
 	background-color: #bfbfbf;
 }
 </style>
@@ -22,17 +26,18 @@ a {
 	<div class='block'>
 		<h3>Management</h3>
 		{% if edit_board or section_ed %}
-		<a href="{% url 'management:select' %}">Generate reports about authors</a><br>
+		<a class='home-link' href="{% url 'management:select' %}">Generate reports about authors</a><br>
 		{% endif %}
-		<a href="{% url 'management:self' %}">See report about yourself</a><br>
+		<a class='home-link' href="{% url 'management:select' %}">See report about yourself</a><br>
 	</div>
 	{% endif %}
 
 	<div class='block'>
 		<h3>Stories</h3>
-		<a href="{% url 'stories:lookup' %}">Lookup stoires</a><br>
+		<a class='home-link' href="{% url 'accounts:lookup_stories' %}">Lookup stoires</a><br>
+		<a class='home-link' href="{% url 'accounts:by_page' %}?author={{ author_id }}">See stories by you</a><br>
 		{% if section_ed or edit_board %}
-		<a href="{% url 'stories:edit' %}">Edit editorship of stories</a><br>
+		<a class='home-link' href="{% url 'accounts:edit_stories' %}">Edit editorship of stories</a><br>
 		{% endif %}
 	</div>
 </div>
@@ -41,15 +46,15 @@ a {
 	<div class='block'>
 		<h3>Accounts</h3>
 		{% if edit_board %}
-		<a href="{% url 'accounts:approve' %}">Approve or deny new users and permissions</a><br>
+		<a class='home-link' href="{% url 'accounts:approve' %}">Approve or deny new users and permissions</a><br>
 		{% endif %}
-		<a href="{% url 'accounts:lookup' %}">Lookup system users</a><br>
+		<a class='home-link' href="{% url 'accounts:lookup_users' %}">Lookup system users</a><br>
 	</div>
 
 	<div class='block'>
 		<h3>Students</h3>
-		<a href="{% url 'students:lookup' %}">Lookup students in directory</a><br>
-		<a href="{% url 'students:edit' %}">Edit students in directory</a><br>
+		<a class='home-link' href="{% url 'students:lookup' %}">Lookup students in directory</a><br>
+		<a class='home-link' href="{% url 'students:edit' %}">Edit students in directory</a><br>
 	</div>
 </div>
 {% endblock %}

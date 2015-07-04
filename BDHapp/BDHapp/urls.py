@@ -11,7 +11,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^management/', include('management.urls', namespace='management')),
-    url(r'^stories/', include('stories.urls', namespace='stories')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^students/',include('students.urls', namespace='students')),
+    url(r'', include('accounts.urls', namespace='accounts')),
 )

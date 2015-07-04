@@ -1,4 +1,4 @@
-{% extends 'default.html' %}
+{% extends 'blank.html' %}
 {% block title %}New User{% endblock %}
 {% block body %}
 <style>
@@ -52,6 +52,10 @@ label {
 		<td><input name='phone_number' id='phone_number' type='text'></td>
 	</tr>
 	<tr>
+		<td>Class Year:</td>
+		<td><input name='class_year' id='class_year' type='number'></td>
+	</tr>
+	<tr>
 		<td>User Type:</td>
 		<td><label for='copy_ed'>Copy Ed: </label><input checked name='user_type' id='copy_ed' value='copy_ed' type='radio'><br>
 			<label for='ssw'>SSW: </label><input name='user_type' id='ssw' value='ssw' type='radio'><br>
@@ -65,11 +69,11 @@ label {
 	<tr>
 		<td>Section:</td>
 		<td><fieldset disabled id='section'>
-				<label for='metro'>Metro: </label><input checked name='section' id='metro' value='metro' type='radio'><br>
-				<label for='news'>U. News: </label><input name='section' id='news' value='news' type='radio'><br>
-				<label for='ac'>A &amp; C: </label><input name='section' id='ac' value='ac' type='radio'><br>
-				<label for='sr'>S &amp; R: </label><input name='section' id='sr' value='sr' type='radio'><br>
-				<label for='sports'>Sports: </label><input name='section' id='sports' value='sports' type='radio'>
+				<label for='metro'>Metro: </label><input checked name='section' id='metro' value='M' type='radio'><br>
+				<label for='news'>U. News: </label><input name='section' id='news' value='UN' type='radio'><br>
+				<label for='ac'>A &amp; C: </label><input name='section' id='ac' value='AC' type='radio'><br>
+				<label for='sr'>S &amp; R: </label><input name='section' id='sr' value='SR' type='radio'><br>
+				<label for='sports'>Sports: </label><input name='section' id='sports' value='S' type='radio'>
 			</fieldset></td>
 	</tr>
 </table>
@@ -104,6 +108,7 @@ label {
 	var phone_number = document.getElementById('phone_number');
 	var first_name = document.getElementById('first_name');
 	var last_name = document.getElementById('last_name');
+	var class_year = document.getElementById('class_year');
 
 	function text_change() {
 		if ((username.value != '') && (password.value != '') && (email.value != '') && (phone_number.value != '')) {
@@ -133,5 +138,6 @@ label {
 	author_url.oninput = text_change;
 	first_name.oninput = text_change;
 	last_name.oninput = text_change;
+	class_year.oninput = text_change;
 </script>
 {% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'default.html' %}
+{% block title %}User Requests{% endblock %}
+{% block body %}
+<style>
+table {
+	width: 90%;
+	border: 1px solid black;
+	border-collapse: collapse;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+tr {
+	border: none;
+}
+td {
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+}
+.gray {
+	background-color: #cecece;
+}
+input[type='submit'] {
+	margin: 10px;
+}
+</style>
+<div class='jumbotron'>
+	<h3>Permission Requests</h3>
+</div>
+<form method='POST' action="{% url 'accounts:approve' %}">
+	{% csrf_token %}
+	<input type='submit' value='Approve' name='approve'><input type='submit' value='Deny' name='deny'>
+	<table>
+		<tr class="gray">
+			<td><a href="?sort=type"><b>Request Type</b></a></td>
+			<td><a href="?sort=name"><b>Name</b></a></td>
+			<td><a href="?sort=email"><b>Email</b></a></td>
+			<td><a href="?sort=username"><b>Username</b></a></td>
+			<td><a href="?sort=perm"><b>User Type</b></a></td>
+			<td><b>Select</b></td>
+		</tr>
+		{% for r in contents %}
+		<tr>
+			<td class={% if forloop.counter|divisibleby:2 %}"gray"{% else %}"white"{% endif %}>{{ r.req }}</td>
+			<td>{{ r.by.user.get_full_name }}</td>
+			<td>{{ r.by.user.email }}</td>
+			<td>{{ r.by.user.username }}</td>
+			<td>{{ r.new_permission }}</td>
+			<td><input type='checkbox' name='users' value='{{ r.by.user.username }}'></td>
+		</tr>
+		{% endfor %}
+	</table>
+</form>
+<script>
+
+</script>
+{% endblock %}

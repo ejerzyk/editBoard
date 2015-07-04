@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<html lang="en-US">
+  <head>
+  	<script src="http://code.jquery.com/jquery-latest.js"></script>
+  	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.css">
+  	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.js"></script>
+  	<style>
+  		p, h1, h2, h3, h4, h5, input, label {
+  			margin-left: 10px;
+  			margin-right: 10px;
+  		}
+  	</style>
+  	<title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <nav id='header' class="navbar navbar-default">
+      <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'accounts:home' %}"><img src="{% static 'img/logo.png' %}" alt="BDH Internal" height='50'></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url 'accounts:edit_users' %}">Manage My Account</a></li>
+            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+            <!-- <li>{{ stat }}</li> -->
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    {% block content %}{% endblock %}
+  </body>
