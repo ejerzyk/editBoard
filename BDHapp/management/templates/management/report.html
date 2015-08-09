@@ -1,0 +1,148 @@
+{% extends 'default.html' %}
+{% block title %}Report{% endblock %}
+{% block body %}
+{% load custom_filters %}
+<style>
+label {
+	width: 100%;
+}
+input[type=radio] {
+    display:none; 
+    margin:10px;
+}
+input[type=radio] + span {
+    display:inline-block;
+    margin-left: 0px;
+    padding: 12px;
+    background-color: #e7e7e7;
+    border-color: #ddd;
+    width: 100%;
+    text-align: center;
+}
+input[type=radio]:checked + span { 
+    background-color: #8c8c8c;
+}
+.invisible {
+	display: none;
+}
+.visible {
+	display: auto;
+}
+#select_author {
+	overflow: scroll;
+}
+button {
+	margin: 10px;
+}
+</style>
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+	<div class='col-md-4' id='select_author'>
+		{% for author in data_to_display %}
+		{% with data_to_display|lookup:author|lookup:'primary_stories_per_week' as spw %}
+		{% with data_to_display|lookup:author|lookup:'edited_stories_per_week' as epw %}
+		<label><input type='radio' name='author' onclick="change_visible({{author.id}})"/><span class="text-{% if spw > 1 or epw > 1 %}success{% elif spw > 0.8 or epw > 0.8 %}warning{% else %}danger{% endif %}">{{ author }}</span></label>
+		{% endwith %}
+		{% endwith %}
+		{% endfor %}
+	</div>
+	<div class='col-md-8' id='charts'>
+		{% for author in data_to_display %}
+		<div class='jumbotron invisible' id="a{{ author.id }}">
+			{% if total_num_stories %}
+			{% if primary_stories_per_week %}
+			<h3>Stories for Primary Section Per Week: <span>{{ data_to_display|lookup:author|lookup:'primary_stories_per_week' }}</span></h3>
+			{% endif %}
+			<h4>Total Number of Stories: <span>{{ data_to_display|lookup:author|lookup:'total_num_stories' }}</span></h4>
+			{% endif %}
+			{% if stories_per_week %}
+			<h4>Stories Per Week: <span>{{ data_to_display|lookup:author|lookup:'stories_per_week' }}</span></h4>
+			{% endif %}
+			{% if edited_stories_per_week %}
+			<h4>Edited Stories Per Week: <span>{{ data_to_display|lookup:author|lookup:'edited_stories_per_week' }}</span></h4>
+			{% endif %}
+			{% if percent_edited_for_section %}
+			<h4>Percent of Primary Section Stories Edited: <span>{{ data_to_display|lookup:author|lookup:'percent_edited_for_section' }}</span></h4>
+			{% endif %}
+			{% if stories_per_section %}
+			<div id='stories_per_section{{ author.id }}'>
+			</div>
+			{% endif %}
+		</div>
+		{% endfor %}
+	</div>
+<script type="text/javascript">
+	console.log(document.getElementById('header'));
+	var header_height = document.getElementById('header').clientHeight;
+	console.log(header_height);
+	document.getElementById('select_author').style.height = (window.innerHeight - header_height - 30) + 'px';
+
+	function change_visible(aID) {
+		var div_to_display = document.getElementById('a' + aID);
+		div_to_display.classList.toggle('invisible');
+		vis_div = document.getElementsByClassName('visible');
+		if (vis_div.length == 1) {
+			vis_div[0].classList.toggle('invisible');
+			vis_div[0].classList.toggle('visible');
+		}
+		div_to_display.classList.toggle('visible');
+	};
+</script>
+{% if stories_per_section %}
+{% for author in data_to_display %}
+<script type="text/javascript">
+	var data = {{ data_to_display|lookup:author|lookup:'stories_per_section'|js }};
+	var num_sections = Object.keys(data).length;
+	// console.log('num_sections', num_sections);
+
+	var bar_chart_height = 350;
+	var bar_chart_width = (((window.innerWidth / 3) * 2) / 9) * 8;
+	var bottom_margin = 50;
+	var bar_width = 20;
+	var horizontal_bar_margin = (bar_chart_width / num_sections) - (2 * bar_width);
+	var bar_mult = ((bar_chart_height - bottom_margin) / {{ data_to_display|lookup:author|lookup:'total_num_stories' }}) - 3;
+	// console.log('horizontal_bar_margin', horizontal_bar_margin);
+	
+	var svg = d3.select('#stories_per_section{{ author.id }}')
+		.append('svg')
+		.attr('height', bar_chart_height)
+		.attr('width', bar_chart_width);
+
+	var x_axis = svg.append('line')
+				.attr("x1", 0)
+				.attr("x2", bar_chart_width)
+				.attr("y1", bar_chart_height - bottom_margin)
+				.attr("y2", bar_chart_height - bottom_margin)
+				.attr("stroke-width", 2)
+				.attr("stroke", "black");
+
+	var num_bars = 0;
+	for (var section in data) {
+		var width = bar_width;
+		var height = bar_mult * data[section];
+		var x = (horizontal_bar_margin / 2) + ((bar_width + horizontal_bar_margin) * num_bars);
+		var y = bar_chart_height - bottom_margin - height;
+		svg.append('rect')
+			.attr('x', x)
+			.attr('y', y)
+			.attr('width', width)
+			.attr('height', height)
+			.style('fill', '#3B3B3B');
+		svg.append('text')
+			.attr('x', x + (bar_width / 2))
+			.attr('y', bar_chart_height - bottom_margin + 2)
+			.attr('text-anchor', 'middle')
+			.attr('font-size', 12)
+			.attr('alignment-baseline', 'hanging')
+			.text(section);
+		svg.append('text')
+			.attr('x', x + (bar_width / 2))
+			.attr('y', y - 2)
+			.attr('text-anchor', 'middle')
+			.attr('font-size', 12)
+			.text(data[section]);
+		num_bars += 1;
+	}
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

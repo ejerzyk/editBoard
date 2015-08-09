@@ -20,25 +20,34 @@ a, h3 {
 .home-link:hover {
 	background-color: #bfbfbf;
 }
+.home-link-text {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-size: 18px;
+	width: 100px;
+}
+.home-icon {
+	width: 50px;
+	height: 50px;
+	margin: 10px;
+	/*float: left;*/
+}
 </style>
 <div class='col-md-6'>
 	{% if edit_board or section_ed or ssw %}
 	<div class='block'>
 		<h3>Management</h3>
-		{% if edit_board or section_ed %}
-		<a class='home-link' href="{% url 'management:select' %}">Generate reports about authors</a><br>
+		{% if edit_board or section_ed or ssw %}
+		<a class='home-link' href="{% url 'management:select' %}"><img class="icon icons8-Bar-Chart home-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAA1UlEQVRoQ+2ZWw6AIAwE9f6H1kQh4iMEuiU2ZPwWcLs7gLAukzzrJDoWhERzMpIjm7E4hwaEGKtXa5YdaS3u7f3WRgO++9UlQqIy0poSojWaExiBkUEZI1rTRkvatDnEzS1a0wkxrawRHUGI6Io7IziCI2cFiNZzZZcqIsYKR/JJUDlDqY6oOwNpfIR8zDJSRSPNWghJM55UiBGMWLc4CPFeEKWKAnu6GoER1pFrd/lkSmKMaBEtolW/c4QRGIGRfkZ6D0QyZ17/7Kbxv2A3dVQw80v7HX6EvjPxvEFEAAAAAElFTkSuQmCC" class="home-icon"><span class="home-link-text">Generate reports about authors</span></a><br>
 		{% endif %}
-		<a class='home-link' href="{% url 'management:select' %}">See report about yourself</a><br>
 	</div>
 	{% endif %}
 
 	<div class='block'>
 		<h3>Stories</h3>
-		<a class='home-link' href="{% url 'accounts:lookup_stories' %}">Lookup stoires</a><br>
-		<a class='home-link' href="{% url 'accounts:by_page' %}?author={{ author_id }}">See stories by you</a><br>
-		{% if section_ed or edit_board %}
-		<a class='home-link' href="{% url 'accounts:edit_stories' %}">Edit editorship of stories</a><br>
-		{% endif %}
+		<a class='home-link' href="{% url 'accounts:lookup_stories' %}"><img class="icon icons8-Search home-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAADAUlEQVRoQ+2aj5ENQRCHfxeBkwEROBEgAkTARYAIEAEiQARHBIjAiQARIALqU91V8/Z233TP7LJv66bq1d27N7PT3/Sf6e53R9rIONoIhy5BTJPHkm5JuifpmiTen9hn55J+Svom6Z2kT/Z+ESNo1QjCPjWAjGAAPZcE5KwjC8KpA/CwkIKTRkDXgAsJrGuI+TeKNW8MCG3NMjIgmM9rE+6XpJf2wnwiA6jH9rpiZnZf0sfI4tqcKMgjE5rnvTdhWk8TrXIId0044F7VBK19HgFhoxf2oCcFUO3Ztc9nfW4NBHM6M4lOJWHbcw58B3Nl3Okxs30gmMBn84k5NTE8CNcMvnbTwnX6sPaBcPoPzCfQzJKDqIfPvB1ExPCeUyCETrRBdOL3VseOCoL2v9pktJK+Z6ZA/IS4vJ5Fpemcxz7cUUTFtAWMgRDvf5hQV5dMKwbg5b61IHThzMYWeKTixr7decrZ5ZgUGQAXJVYRHmMg7uRLRqopAT2CpZ1+DISUgYy2K66Hj3J3IhbwwTLllDWMgRCtiFRN0aMRwJd5tMTE2D88xkB+2+q0w4V33T+xaf9Ng3jk+J+m9aWoNEOK3rSzbyb8+oWYjhwhG9g/ySPmLBfiGlKUdGq0xqQxfauj5Foa31XsJEytTOOvt5QNkcKK5A2bXXJQTuObzYlqrdTF4WndLJlAeh1CEYdmou2lnYOtpSGexLFo6eZDOlKVJDUQ5pZtm1l6UCYA1WBZfXYdVARkCIPPYGqtdTzmQ59srJxthomCAIOZAeHtTrqFdAijNs39RMfStYBP8KzhaILJgLAhp4kgtIl8EBBIa/iJcGUTG0GpMWjE+dcNrKPBwN+8n9wNkwXxDREKIO/fRkMzlx3QZeO67DaWz0lpphWk3JBTLb/o8a8PvpsfoSEE5zVlht0wc4BEtVGb1wWzJhBAm2HWBtIMs0aQJpi1gqRh1gySglk7SBjmEECmYHYqyUMBGcJcKIcPCcRhSF7Lf1j4e9EeGshkdnAJUkuc/vXnfwCQVbEz/+Ph+QAAAABJRU5ErkJggg==" class="home-icon"><span class="home-link-text">Lookup stoires</span></a><br>
+		<a class='home-link' href="{% url 'accounts:by_page' %}?author={{ author_id }}"><img class="icon icons8-Literature home-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAC0ElEQVRoQ+2a4XETMRCFnysgVAAdECogHRAqACoIVJBQAUkFhAoIFQAVQDpIKiCpIMzn0TJrIZ1OdxI/PNLMjc8+3e6+3aeVfc8b7cnY7AkO5YD8lHToQN5I4mB8l3Qn6ZekH40T8SL4PZB0FGw/lcRh40rSq9hvDshDRYAAwvjXAK7i1m2yXko6jhJXsvFP3CUgXPcZIVM45zNen0UeAXUu6XMhkteS3iWCvw7JoPrYovIMY4QleBGQqZiMAmSU45Fz/D5Uyt/PnI+OKvdhDhU1yk756wYkdvpGEgdct/VkfP7ieM/augxHiUb++n8DYk4BA8WokDUJ6EgFoBQgloxJINDjNGSScz/WtGcChzK2juA/nch4vwaI3YstkvKBQMncScbqGiCYJDG/g+3HK0FgJtdNLwgURzh87tpntoQL0tjTFp2TPe8OIClHPZ0vyMXfW7KxDiAVae1d3a39UZFRkYoMJKaOxb52Q/SbWC9bY7HXsny037HYXQZ606GWnjZ/tN9eLXNUJGTAJ3jsI7W06N04RkVGRWozMHb2sbNPc2Z0rbFG9nmNgM3rh7w3/dBeb510kFotc9YIT+6fOP2QZ7peGYh1xNnftVCPTKyZ0/4NFPfFWmIKiGmHyAxx0CV/2Ef52vmNknvSmDLmHdq56YmxlkgV0S0uIlkB+QIRyKu0+EI78boh+qGv/hS4ye9apazE100kNS0RmlggRhGqZufQERGIw4uetX6Z3xRIHACUIfOot36g9lIpKNhqdAViQUI90wsBZpRpBWKnIpQc0dIrVi0d9bRlitV9SUNcEgRZJym5wTr5VvlPh1IcWw0Rw2eB0yb4l24sXYdObzOTPgVfJRtzriN34+usxVMS75BSs5BJCJUhQbRWBi2a98whAF5Ng58T9OSc1kBw5sGknAOCrtZ04fcAQvDQlX842M7NZwROtdD11/xpIFmZP7GEGEADUh9KAAAAAElFTkSuQmCC"><span class="home-link-text">See stories by you</span></a><br>
+		<a class='home-link' href="{% url 'accounts:scrape_by_page' %}?author={{ author_id }}"><img class="icon icons8-Open-In-Browser home-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAACW0lEQVRoQ+2ai20UMRBAXzqADugAqCBQAZQAFUAHKBUEKgAqgFQAVBCoAKiAUEHQi2y0OHayx82s7k47UqTN3mXsNx9/ZnLEgcgRcAd4BTwrz/uEdgG8A04EeQ282KfZd+b6RpBfxRMPga97BvQAOAcuBLksk/d5H+Vq/j0Qc+Yt8BT4CDyXuHit91491RhLGqIafgjyCXg0mdFZgRq931mQnnWnnpta/R+rFA9ne6VNhaFHPgPHHY+M3u+sR8wR1+YngGHl/lJzpPd+Z0GyQyNa/zC0ogfK1ncNJHvAVP2j1Sh10AzlB72zZxgsU+fhJvvBHRozwyBD9xpam1rVI4/iMSdDFvGIEB7/lcdJMOkgFcLrqOI1OgMmFaSFqCGVAZMGMoX4BtwvFPU5GiYFpIXwymyVRrkLeDkTLBImHKQH4Uo1vZr6nWiYUJARhJ5o79jRMGEgN0H0QHwXCRMGYqXPJdZkNifajW9UAGxhrHT+j4SB1DJrD2LkkTrhCuPvdb/ZFCYM5LaBs0uyK8htHmg/Xz0y02JraM001N+vraE102KLhNY94DvwE/A5QxYBcZP0hvilaR5FAqXUft3lp0eNl8Ap8L60JypAPdaEAVnLahs42yj3vDU9atiDtM9iH9LeShWB64Vrm/Hq355lFuVqfjiYl6qsKsoVTCbIh9JEbcMqwgPXdGSB2Ma2Zfe7hNqPlNlPlEaDGE5C1Pa25R9zMF0iQOwAm+BO3n8yUPSEHjHZF5G5IJssl+aEy25qcrfWmQty03Lpkuvn/rjELgpQgeaCLBIe2wzyB7MIx03yYeA1AAAAAElFTkSuQmCC"><span class="home-link-text">Scrape your author page(s)</span></a><br>
 	</div>
 </div>
 
@@ -46,15 +55,15 @@ a, h3 {
 	<div class='block'>
 		<h3>Accounts</h3>
 		{% if edit_board %}
-		<a class='home-link' href="{% url 'accounts:approve' %}">Approve or deny new users and permissions</a><br>
+		<a class='home-link' href="{% url 'accounts:approve' %}"><img class="icon icons8-Approval home-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAEHUlEQVRoQ+2a/ZFNQRDFeyNABIgAESACRIAIEAEiQASIABEgAkSACJCB+m3N2ep3352Z7jvztra2tv+5727N7ZnTH6d7ZvbIzokcnRMcdgGk4smbZnbPzD6Z2feBMelAmekRQHw2s8tlFb/M7IuZfSzv983sjpldK+9/zexuA3AKzCwgj8zsVQHxozyvVlby28wAcaM8n5nZu9SqVwbPAAKIt0X3ezPjHcFD8gLv8o5CjsU/LGMfj4LJAiE0bpdFEiIsVvLSzF4kLcv45+4bQBKSPL8W8CGVGSAs/OeKVkLp9YBF8eDTEmpL9dcLsC6YDBAW+6RYit+yXHeSxAA8jMEAhufflN9dFRkgf0oS35rFNI3VEcIwIKRwpYvCLFwQldCEkc+LyBxbx+BxmC9EBBGPUBewDgBCSreufPGdjEfiU2/wTlV6QKBPqBUw/0r8NhVOAoEa5sQrlwoIjKjiujdNDQhKoEWSDoEKsRCKDyHMh8epNV5IfOoNiY9AMtD8njFrQAglEg6h8qLgkCJGrM2FQekcEMASajtSA6JEe9By5yRkYijUteoGYf7BzGhx1K+dLKEGBNS4E+RLd09a/7EaQupbWVivMxBgwlzRcmaAqEWJ0PqZBUJy4w0kUmSHgBwy0QEBmF5IKXyU8OHQ8pYKN23JxFFIkbjMF6lNvmndW9dasot6ww1bEgQLwhskepZMRNN7FLwEIoo7ZBUfMZSv9jtGWAJhv4HFDpUbivMRQ0kHtY4QO5YlEBXCCBA1k/Q/JGxPGI+heI4UWgHZKYy10CL5QNtKQl+R6Ydo6lpCVSZ0OSriuUW8MZqhhXJV9Uiy00iSgHSogMGTa+Bn5Z7fpe5U9zXWytKvulbArO0dvBVH9jNp+vVeieQK41tgqlZMxla6IHogGZ7HYiS+Dt74VoQASwF2ZD8z1KJkgKibJccEhnyZReenCkRgSHwOs5HV3igZVgzfBESFcYTvdSQa6WwjuMR8O4WwVhD1d1Ew7yQZVLxFsOKMjRkHg9puh7tfhQcdKgqU/Hgn0qVuAVz7hvziFEc1A4OyrvDhgxTjTkJERzK9aj8ThK8/sB7FN30c5BeEQjHRSEHLgvSnm3hk6IBOk/tTP5L3NEQ7yJDxeieNfsFYhBCbxUItY4hqCSld5TWNlwHid2f8po2uXXhu9RjVn4NrmBIwkcb1eK4MkNpFD2CYcOs9IGELO66d8ofPDDJAVF2xlC5kaEUk0GJkg+W9xfmyv67jfEsXSBBMuAZlgayFjL8M9Rss3blrEwV1+vt36oMuTkMJ3YrXGUDQ7zdYhBoJunc+WxaCxSEOgJLM5MPWsDzBNgsICv2ehHfIYO0fBnT/DgjCdAphzAQiMIQSYdT6F47emDTrzQaSXsCsDy6AzLLkLD3/AZI2E0L8x3klAAAAAElFTkSuQmCC"><span class="home-link-text">Approve or deny new users and permissions</span></a><br>
 		{% endif %}
-		<a class='home-link' href="{% url 'accounts:lookup_users' %}">Lookup system users</a><br>
+		<a class='home-link' href="{% url 'accounts:lookup_users' %}"><img class="icon icons8-Search home-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAADAUlEQVRoQ+2aj5ENQRCHfxeBkwEROBEgAkTARYAIEAEiQARHBIjAiQARIALqU91V8/Z233TP7LJv66bq1d27N7PT3/Sf6e53R9rIONoIhy5BTJPHkm5JuifpmiTen9hn55J+Svom6Z2kT/Z+ESNo1QjCPjWAjGAAPZcE5KwjC8KpA/CwkIKTRkDXgAsJrGuI+TeKNW8MCG3NMjIgmM9rE+6XpJf2wnwiA6jH9rpiZnZf0sfI4tqcKMgjE5rnvTdhWk8TrXIId0044F7VBK19HgFhoxf2oCcFUO3Ztc9nfW4NBHM6M4lOJWHbcw58B3Nl3Okxs30gmMBn84k5NTE8CNcMvnbTwnX6sPaBcPoPzCfQzJKDqIfPvB1ExPCeUyCETrRBdOL3VseOCoL2v9pktJK+Z6ZA/IS4vJ5Fpemcxz7cUUTFtAWMgRDvf5hQV5dMKwbg5b61IHThzMYWeKTixr7decrZ5ZgUGQAXJVYRHmMg7uRLRqopAT2CpZ1+DISUgYy2K66Hj3J3IhbwwTLllDWMgRCtiFRN0aMRwJd5tMTE2D88xkB+2+q0w4V33T+xaf9Ng3jk+J+m9aWoNEOK3rSzbyb8+oWYjhwhG9g/ySPmLBfiGlKUdGq0xqQxfauj5Foa31XsJEytTOOvt5QNkcKK5A2bXXJQTuObzYlqrdTF4WndLJlAeh1CEYdmou2lnYOtpSGexLFo6eZDOlKVJDUQ5pZtm1l6UCYA1WBZfXYdVARkCIPPYGqtdTzmQ59srJxthomCAIOZAeHtTrqFdAijNs39RMfStYBP8KzhaILJgLAhp4kgtIl8EBBIa/iJcGUTG0GpMWjE+dcNrKPBwN+8n9wNkwXxDREKIO/fRkMzlx3QZeO67DaWz0lpphWk3JBTLb/o8a8PvpsfoSEE5zVlht0wc4BEtVGb1wWzJhBAm2HWBtIMs0aQJpi1gqRh1gySglk7SBjmEECmYHYqyUMBGcJcKIcPCcRhSF7Lf1j4e9EeGshkdnAJUkuc/vXnfwCQVbEz/+Ph+QAAAABJRU5ErkJggg==" class="home-icon"><span class="home-link-text">Lookup system users</span></a><br>
 	</div>
 
 	<div class='block'>
 		<h3>Students</h3>
-		<a class='home-link' href="{% url 'students:lookup' %}">Lookup students in directory</a><br>
-		<a class='home-link' href="{% url 'students:edit' %}">Edit students in directory</a><br>
+		<a class='home-link' href="{% url 'students:lookup' %}"><img class="icon icons8-Search home-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAADAUlEQVRoQ+2aj5ENQRCHfxeBkwEROBEgAkTARYAIEAEiQARHBIjAiQARIALqU91V8/Z233TP7LJv66bq1d27N7PT3/Sf6e53R9rIONoIhy5BTJPHkm5JuifpmiTen9hn55J+Svom6Z2kT/Z+ESNo1QjCPjWAjGAAPZcE5KwjC8KpA/CwkIKTRkDXgAsJrGuI+TeKNW8MCG3NMjIgmM9rE+6XpJf2wnwiA6jH9rpiZnZf0sfI4tqcKMgjE5rnvTdhWk8TrXIId0044F7VBK19HgFhoxf2oCcFUO3Ztc9nfW4NBHM6M4lOJWHbcw58B3Nl3Okxs30gmMBn84k5NTE8CNcMvnbTwnX6sPaBcPoPzCfQzJKDqIfPvB1ExPCeUyCETrRBdOL3VseOCoL2v9pktJK+Z6ZA/IS4vJ5Fpemcxz7cUUTFtAWMgRDvf5hQV5dMKwbg5b61IHThzMYWeKTixr7decrZ5ZgUGQAXJVYRHmMg7uRLRqopAT2CpZ1+DISUgYy2K66Hj3J3IhbwwTLllDWMgRCtiFRN0aMRwJd5tMTE2D88xkB+2+q0w4V33T+xaf9Ng3jk+J+m9aWoNEOK3rSzbyb8+oWYjhwhG9g/ySPmLBfiGlKUdGq0xqQxfauj5Foa31XsJEytTOOvt5QNkcKK5A2bXXJQTuObzYlqrdTF4WndLJlAeh1CEYdmou2lnYOtpSGexLFo6eZDOlKVJDUQ5pZtm1l6UCYA1WBZfXYdVARkCIPPYGqtdTzmQ59srJxthomCAIOZAeHtTrqFdAijNs39RMfStYBP8KzhaILJgLAhp4kgtIl8EBBIa/iJcGUTG0GpMWjE+dcNrKPBwN+8n9wNkwXxDREKIO/fRkMzlx3QZeO67DaWz0lpphWk3JBTLb/o8a8PvpsfoSEE5zVlht0wc4BEtVGb1wWzJhBAm2HWBtIMs0aQJpi1gqRh1gySglk7SBjmEECmYHYqyUMBGcJcKIcPCcRhSF7Lf1j4e9EeGshkdnAJUkuc/vXnfwCQVbEz/+Ph+QAAAABJRU5ErkJggg==" class="home-icon"><span class="home-link-text">Lookup students in directory</span></a><br>
+		<a class='home-link' href="{% url 'students:edit' %}"><img class="icon icons8-Edit-User home-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAADlklEQVRoQ+2ai5GNQRCFz0aACBABIkAEiAARIAI2AkSACBABIkAEVgSIgPq25lRN/fU/umfmd9UtXXVrb+3Oo8+cfk3PnuhI5ORIcOg/kIrJK5IuS7o1YfejpE9/i/EeRu5LejADoNb9TNI9SV/2BtQC5KKkV5LuFuV+FUVhwMIY/g5TPyW9lvReUj1mKLYsEBT8IOm6JADAyLsVjQAAcxbGPizgDgrkmaSnkr4Wk+K0twTQ+A9zLxTgmNtQyTCCU38ru99osHvm4yuAuT3azDJAHkt6Xmzd/pE9VTOKv7SuMbtnBgj2fafYOLbfIpjZ5+Ijl1oWWJqTAULEuTnALH4XZTJ7b2LOLIZ/YOct/lErcnAgR8PI0QCxs5MD1pLgmj2TT0io5CEcf5hkfMSh87QktxYlHMLflKqgZY3u8OvTpKKdVrpRhUaE8G4gJLC3nTnghyTqtR7z7AZiZ+8xLZtnD6vDgPTUSSPMsxvICPum7Ocuc9Bay0pw68O8svUW87kCUB1wJ8nOXw0omfDLQmaF79m5Lk2Gs9GiDHO4U1xL1lyueocnQtOUPVXmvZD0qJgXUSginjM8EfYAqe8UVwP3b/IGlTM/eyvnxUNrYYTFnFMwM8Lx0t297rgMzx01qlYgKAgI2j1recV5g44L33frb7UCqVmJANmVjdaoZUYj95PdMvnUWfZmZLdmwyggZGe6IfgKkYtsvyROhFvjImHcY6gQuNs4HZy2MMIpUy/xM2L7bpvi6JQmvQ7P3pQ7taSAwAIn4UWibVNYw5+oBhCAUautsbjEjkEQBelYWs4ijNCUg8b6VkiG5neR3i+bAYYqgIrAQt3mLn3ErGoQ6GLLYO73JSBszKacPkwgnAKbo1DLabIGazGf26ZPlLUA9HLlYKYgME+A0MhA11nTAgCbMeAcbamv2CzKwNYJ+/2EfUiqCGvDMmzXsgXivH6rGZk+4ODIbLTb40zR1k8OtGORJ+Xg+B4CwcAaCOHUDziczNCLzxZFxdzYlw+mEwZRA3GZvXtNFACUYsLrwUj9gNPTWAjquDksxUQNxGzscgXdVLvBsefWhBEXf8MbAgkQBBqafzh+bd51iF29XQLEtVBi3yFDcWhujAj5oBmEnf1QQNyImPPRMBO1jww53o5F3C9jCVgij2BmmFu4WRGptTp0DE2d/lOBJ4VBTBNiaNcdBvltsl46BeJfAYI5udQngvJJF6V/ANOl9/KMp6G5AAAAAElFTkSuQmCC"><span class="home-link-text">Edit students in directory</span></a><br>
 	</div>
 </div>
 {% endblock %}

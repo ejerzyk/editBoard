@@ -5,6 +5,17 @@ import urllib2
 from dateutil import parser
 from bs4 import BeautifulSoup
 
+def connect(url):
+	print 'making request...'
+	req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"}) 
+	print 'making connection...'
+	con = urllib2.urlopen( req )
+	print 'reading response...'
+	resp_str = unicode(con.read().replace('&raquo;', '&#187;'), 'utf-8')
+	print 'closing connection...'
+	con.close()
+	return resp_str
+
 SECTION_CHOICES = (
 		('M', 'METRO'),
 		('N', 'UNIVERSITY NEWS'),
@@ -40,7 +51,7 @@ class author(models.Model):
 	section = models.CharField(max_length=2, choices=SECTION_CHOICES, default='N')
 	def __str__(self):
 		return self.gen_user.__str__()
-	def scrape_page(self, story_soup_list):
+	def scrape_page(self, story_soup_list, stop):
 		for story_soup in story_soup_list:
 			section = story_soup.find('p', class_='category_list').get_text(strip=True)
 			title_html = story_soup.h2.a 
@@ -51,35 +62,36 @@ class author(models.Model):
 				story_in_db = story.objects.get(title=title)
 				try:
 					author_related = author_relationship.objects.get(story=story_in_db, author=self)
-					return False
+					if stop:
+						return False
+					continue
 				except author_relationship.DoesNotExist:
 					new_ar = author_relationship(story=story_in_db, author=self)
 					new_ar.save()
 			except story.DoesNotExist:
 				new_story = story(title=title, section=section, date=date_of_article, url=story_url)
 				new_story.save()
+				# print new_story
 				new_ar = author_relationship(story=new_story, author=self)
 				new_ar.save()
 		return True 
-	def scrape(self):
+	def scrape(self, stop):
+		print 'STOP IS ' + str(stop)
 		url = self.author_url
-		req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"}) 
-		con = urllib2.urlopen( req )
-		resp_str = unicode(con.read().replace('&raquo;', '&#187;'), 'utf-8')
-		con.close()
+		resp_str = connect(url)
+		print 'parsing response...'
 		soup = BeautifulSoup(resp_str, 'html.parser')
 		next_page = True
 		while next_page:
 			print 'SCRAPING ' + url
-			next_page = self.scrape_page(soup.find_all('div', class_='post-content'))
+			next_page = self.scrape_page(soup.find_all('div', class_='post-content'), stop)
 			next_page_html = soup.find('a', class_='next page-numbers')
-			if next_page_html is not None and next_page:
+			if next_page_html is not None:
 				url = next_page_html.get('href')
-				next_req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"}) 
-				next_con = urllib2.urlopen( next_req )
-				resp_str = unicode(next_con.read().replace('&raquo;', '&#187;'), 'utf-8')
-				con.close()
+				resp_str = connect(url)
 				soup = BeautifulSoup(resp_str, 'html.parser')
+				if not stop:
+					next_page = True
 			else: 
 				print 'NO NEXT PAGE'
 				next_page = False

@@ -1,0 +1,61 @@
+{% extends 'default.html' %}
+{% block title %}Users{% endblock %}
+{% block body %}
+{% load custom_filters %}
+<style>
+table {
+	width: 95%;
+	border: 1px solid black;
+	border-collapse: collapse;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 20px;
+}
+tr {
+	border: none;
+}
+td {
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+}
+tr.gray {
+	background-color: #E2E2E2;
+}
+.btn {
+	margin: 10px;
+}
+</style>
+<div class='jumbotron'>
+	<h3>All users</h3>
+</div>
+<form method="POST" action="{% url 'accounts:lookup_users' %}">
+	{% csrf_token %}
+	{% if edit_board %}
+	<input type="submit" class="btn btn-primary" name="delete" value="Delete Old Users">
+	{% endif %}
+	<table>
+		<tr class="gray">
+			<td><a href="?sort=name"><b>Name</b></a></td>
+			<td><a href="?sort=phone_num"><b>Phone Number</b></a></td>
+			<td><a href="?sort=email"><b>Email</b></a></td>
+			<td><a href="?sort=class_year"><b>Class Year</b></a></td>
+			<td><a href="?sort=group"><b>Group(s)</b></a></td>
+			<td><a href="?sort=section"><b>Section</b></a></td>
+		</tr>
+	{% for obj in users %}
+		<tr class={% if forloop.counter|divisibleby:2 %}"gray"{% endif %}>
+			{% with obj|lookup:'author' as a %}
+			{% with obj|lookup:'bdhu' as bdhu %}
+			<td>{% if obj|lookup:'authorP' %}<a href="{{ a.author_url }}">{% endif %}{{ obj|lookup:'bdhu' }}{% if obj|lookup:'authorP' %}</a>{% endif %}</td>
+			<td>{{ bdhu.phone_number|format_phone_num }}</td>
+			<td>{{ bdhu.user.email }}</td>
+			<td>{{ bdhu.class_year }}</td>
+			<td>{{ bdhu.user.username|group_string }}</td>
+			<td>{% if obj|lookup:'authorP' %}{{ a.section|translate }}{% endif %}</td>
+			{% endwith %}
+			{% endwith %}
+		</tr>
+	{% endfor %}
+	</table>
+</form>
+{% endblock %}

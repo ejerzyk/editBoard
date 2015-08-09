@@ -3,11 +3,11 @@
 {% block body %}
 <style>
 table {
-	width: 90%;
+	width: 100%;
 	border: 1px solid black;
 	border-collapse: collapse;
-	margin-left: 10px;
-	margin-right: 10px;
+	/*margin-left: 10px;*/
+	/*margin-right: 10px;*/
 }
 tr {
 	border: none;
@@ -19,30 +19,58 @@ td {
 tr.gray {
 	background-color: #E2E2E2;
 }
+input[type=submit] {
+	margin: 10px;
+}
+input[type=checkbox] {
+	margin: 5px;
+}
+label {
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+}
 </style>
 <div class='jumbotron'>
 	<h3>All stories</h3>
 </div>
-<table>
-	<tr class="gray">
-		<td><a href="?sort=title"><b>Title</b></a></td>
-		<td><a href="?sort=date"><b>Date</b></a></td>
-		<td><a href="?sort=section"><b>Section</b></a></td>
-		<td><b>Author(s)</b></td>
-		<td><b>Editor(s)</b></td>
-	</tr>
-{% for story in contents %}
-	<tr class={% if forloop.counter|divisibleby:2 %}"gray"{% endif %}>
-		<td><a href="{{ story.url }}">{{ story.title }}</a></td>
-		<td>{{ story.date }}</td>
-		<td>{{ story.section }}</td>
-		<td>{% for author in story.authors %}
-			<a href="{% url 'accounts:by_page' %}?author={{ author.id }}">{{ author }}{% if forloop.last %}{% else %}, {% endif %}</a>
-			{% endfor %}</td>
-		<td>{% for editor in story.editors %}
-			<a href="{% url 'accounts:by_page' %}?author={{ editor.id }}">{{ editor }}{% if forloop.last %}{% else %}, {% endif %}</a>
-			{% endfor %}</td>
-	</tr>
-{% endfor %}
-</table>
+{% if section_ed or edit_board %}
+<form method='POST' action="{% url 'accounts:lookup_stories' %}">
+{% csrf_token %}
+<input type='submit' class='btn btn-primary' name='add' value='Add Myself as Editor'/><input type='submit' class='btn btn-primary' name='remove' value="Remove Myself as Editor"/>
+{% endif %}
+	<table>
+		<tr class="gray">
+			<td><a href="?sort=title"><b>Title</b></a></td>
+			<td><a href="?sort=date"><b>Date</b></a></td>
+			<td><a href="?sort=section"><b>Section</b></a></td>
+			<td><b>Author(s)</b></td>
+			<td><b>Editor(s)</b></td>
+			{% if section_ed or edit_board %}
+			<td><b>Select</b></td>
+			{% endif %}
+		</tr>
+	{% for story in contents %}
+		<tr class={% if forloop.counter|divisibleby:2 %}"gray"{% endif %}>
+			<!-- {% if section_ed or edit_board %}
+			<label>
+			{% endif %} -->
+			<td><a href="{{ story.url }}">{{ story.title }}</a></td>
+			<td>{{ story.date }}</td>
+			<td>{{ story.section }}</td>
+			<td>{% for author in story.authors %}
+				<a href="{% url 'accounts:by_page' %}?author={{ author.id }}">{{ author }}{% if forloop.last %}{% else %}, {% endif %}</a>
+				{% endfor %}</td>
+			<td>{% for editor in story.editors %}
+				<a href="{% url 'accounts:by_page' %}?author={{ editor.id }}">{{ editor }}{% if forloop.last %}{% else %}, {% endif %}</a>
+				{% endfor %}</td>
+			{% if section_ed or edit_board %}
+			<td><label><input type='checkbox' name="{{ story.id }}"/></label></td>
+			{% endif %}
+		</tr>
+	{% endfor %}
+	</table>
+{% if section_ed or edit_board %}
+</form>
+{% endif %}
 {% endblock %}

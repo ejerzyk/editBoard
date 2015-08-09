@@ -13,12 +13,7 @@ form {
 input {
 	margin: 3px;
 }
-td {
-	/*padding: 3px;*/
-	/*border: 1px solid black;*/
-}
 label {
-	/*vertical-align: middle;*/
 	margin-right: 5px;
 }
 </style>
@@ -26,6 +21,9 @@ label {
 {% csrf_token %}
 <h3>New User</h3>
 <br><br>
+<div class="alert alert-danger">
+{{ message }}
+</div>
 <table align='center'>
 	<tr>
 		<td>First Name:</td>

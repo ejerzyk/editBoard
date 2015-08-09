@@ -14,6 +14,8 @@ urlpatterns = patterns('',
     url(r'edit_users/$', views.edit_users, name='edit_users'),
     url(r'lookup_stories/$', views.lookup_stories, name='lookup_stories'),
     url(r'edit_stories/$', views.edit_stories, name='edit_stories'),
+    url(r'scrape_by_page/$', views.scrape_by_page, name='scrape_by_page'),
     url(r'by_page/$', views.by_page, name='by_page'),
+    url(r'reset_password/$', views.reset_password, name='reset_password'),
     url(r'', views.home, name='home'),
 )

@@ -1,0 +1,111 @@
+{% extends 'default.html' %}
+{% block title %}Select Parameters{% endblock %}
+{% block body %}
+<style>
+.scroll_panel {
+	overflow-y: scroll;
+	max-height: 150px;
+}
+td {
+	width: 30%;
+}
+table {
+	width: 100%;
+}
+label {
+	width: 100%;
+}
+input[type=checkbox] {
+    display:none; 
+    margin:10px;
+}
+input[type=submit] {
+	margin: 10px;
+}
+input[type=checkbox] + span {
+    display:inline-block;
+    margin-left: 0px;
+    padding: 12px;
+    background-color: #e7e7e7;
+    border-color: #ddd;
+    width: 100%;
+    text-align: center;
+}
+input[type=checkbox]:checked + span { 
+    /*background-image: none;*/
+    background-color: #8c8c8c;
+}
+div#when {
+	clear: both;
+}
+.col-md-4 {
+	min-height: 185px;
+}
+</style>
+<div ng-app="select_app" ng-controller="select_ctl">
+<div class='jumbotron'>
+	<h3>Select the parameters for your report.</h3>
+</div>
+<form method='POST' action="{% url 'management:report' %}">
+{% csrf_token %}
+<div id='who'>
+	<h3>Who</h3>
+	<h4>Groups</h4>
+	<label class='check'><input type="checkbox" name='ssw' id='ssw' ng-model="ssw" checked/><span>   SSWs</span></label><br>
+	<label class='check'><input type="checkbox" name='section_ed' id='section_ed' ng-model="se"/><span>   Section Eds</span></label><br>
+	<label class='check'><input type="checkbox" name='edit_board' id='edit_board' ng-model="eb"/><span>   Edit Board Members</span></label><br>
+	<br>
+	<h4>Custom</h4>
+	<table>
+		<tr>
+			<td><h5 style='text-align:center;'>SSWs</h5></td>
+			<td><h5 style='text-align:center;'>Section Eds</h5></td>
+			<td><h5 style='text-align:center;'>Edit Board Members</h5></td>
+		</tr>
+		<tr class='scroll_pannel'>
+			<td><div class='scroll_panel'>{% for ssw in ssws %}
+				<label class='check'><input type='checkbox' name='{{ ssw.id }}' ng-checked="ssw"/><span>{{ ssw }}</span></label><br>
+				{% endfor %}</div></td>
+			<td><div class='scroll_panel'>{% for se in ses %}
+				<label class='check'><input type='checkbox' name='{{ se.id }}' ng-checked="se"/><span>{{ se }}</span></label><br>
+				{% endfor %}</div></td>
+			<td><div class='scroll_panel'>{% for eb in ebs %}
+				<label class='check'><input type='checkbox' name='{{ eb.id }}' ng-checked="eb"/><span>{{ eb }}</span></label><br>
+				{% endfor %}</div></td>
+		</tr>
+	</table>
+</div>
+<br>
+<div id='when'>
+	<h3>When</h3>
+	<label>Start: <input type="date" id='when_start' name='when_start'/> (auto set to beginning of semester)</label><br>
+	<label>End: <input type="date" id='when_end' name='when_end'/> (auto set to today)</label>
+</div>
+<div id='what'>
+	<h3>What</h3>
+	<label class='check'><input type='checkbox' name='total_num_stories' checked/><span>   Total Number of Stories</span></label><br>
+	<label class='check'><input type='checkbox' name="stories_per_week" checked/><span>   Number of Stories per Seven Days</span></label><br>
+	<label class='check'><input type='checkbox' name='primary_stories_per_week' checked/><span>   Number of Stories for Primary Section per Seven Days</span></label><br>
+	<label class='check'><input type='checkbox' name="stories_per_section" checked/><span>   Number of Stories per Section</span></label><br>
+	<label class='check'><input type='checkbox' name='edited_stories_per_week'/><span>   Number of Stories Edited per Week</span></label>
+	<label class='check'><input type='checkbox' name='percent_edited_for_section'/><span>   Percent of Primary Section Stories Edited</span></label>
+	<label class='check'><input type='checkbox' name='scrape'/><span>   Scrape Author URLs?</span></label>
+</div>
+</div>
+<div style='text-align: center;'>
+<input class='btn btn-primary' type='submit' value='Generate Report'/>
+</div>
+</form>
+<script type="text/javascript">
+	// setup page 
+	var beginning_of_semester = new Date("{{ semester_begin }}");
+	document.getElementById('when_start').value = beginning_of_semester.toISOString().split('T')[0];
+	var today = new Date();
+	document.getElementById('when_end').value = today.toISOString().split('T')[0];
+
+	// angular app
+	var app = angular.module('select_app', []);
+    app.controller('select_ctl', function($scope) {
+    });
+</script>
+{% endblock %}

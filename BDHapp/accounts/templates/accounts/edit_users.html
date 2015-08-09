@@ -17,11 +17,11 @@ label {
 	<table align='center'>
 		<tr>
 			<td><label for='first_name'>First Name: </label></td>
-			<td><input type='text' id='first_name' value='{{ bdhuser.user.first_name }}'></td>
+			<td><input type='text' name='first_name' id='first_name' value='{{ bdhuser.user.first_name }}'></td>
 		</tr>
 		<tr>
 			<td><label for='last_name'>Last Name: </label></td>
-			<td><input type='text' id='last_name' value='{{ bdhuser.user.last_name }}'></td>
+			<td><input type='text' name='last_name' id='last_name' value='{{ bdhuser.user.last_name }}'></td>
 		</tr>
 		<tr>
 			<td><label for='username'>Username: </label></td>
@@ -29,19 +29,19 @@ label {
 		</tr>
 		<tr>
 			<td><label for='password'>Password: </label></td>
-			<td><input type='password' id='password'></td>
+			<td><input type='password' name='password' id='password'></td>
 		</tr>
 		<tr>
 			<td><label for='email'>Email: </label></td>
-			<td><input type='email' id='email' value='{{ bdhuser.user.email }}'></td>
+			<td><input type='email' name='email' id='email' value='{{ bdhuser.user.email }}'></td>
 		</tr>
 		<tr>
 			<td><label for='phone_number'>Phone Number: </label></td>
-			<td><input type='text' id='phone_number' value='{{ bdhuser.phone_number }}'></td>
+			<td><input type='text' name='phone_number' id='phone_number' value='{{ bdhuser.phone_number }}'></td>
 		</tr>
 		<tr>
 			<td><label for='class_year'>Class Year: </label></td>
-			<td><input type='number' id='class_year' value='{{ bdhuser.class_year }}'></td>
+			<td><input type='number' name='class_year' id='class_year' value='{{ bdhuser.class_year }}'></td>
 		</tr>
 		<tr>
 			<td><p><b>User Type: </b></p></td>
@@ -55,7 +55,7 @@ label {
 		{% if author %}
 		<tr>
 			<td><label for='author_url'>Author URL: </label></td>
-			<td>http://browndailyherald.com/author/<input type='text' id='author_url' value='{{ author_url }}'></td>
+			<td>http://browndailyherald.com/author/<input type='text' name='author_url' id='author_url' value='{{ author_url }}'></td>
 		</tr>
 		<tr>
 			<td><label for='section'>Section: </label></td>
@@ -70,7 +70,7 @@ label {
 		{% endif %}
 		<tr>
 			<td></td>
-			<td><input type='submit' value='Save Changes' align='center'></td>
+			<td><input class='btn btn-primary' type='submit' value='Save Changes' align='center'></td>
 		</tr>
 	</table>
 </form>
